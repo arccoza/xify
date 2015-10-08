@@ -1,158 +1,3 @@
-// (function($) {
-	
-// 	// DOM Ready
-// 	$(document).ready(function() {
-// 		// jQuery Code
-// 		//console.log('document ready');
-
-// 		console.log(History);
-
-// 		//History events & Ajax
-// 		if(window.history.pushState){
-// 			var history = window.History;
-// 			var oldState = history.getState();
-// 			var newState = null;
-// 			var fromUrl = oldState.url;
-// 			var toUrl = null;
-// 			var toTitle = '';
-// 			var htmlContentRegex = /<body(.*)>((\s|.)*)<\/body>/gi;
-// 			var headOpenRegex = /<head(.*)>/i;
-// 			var headCloseRegex = /<\/head>/i;
-// 			var htmlScriptsRegex = /<script(?:.*)>(?:.*)<\/script>/gi;
-// 			var page = null;
-
-// 			var updatePage = function() {
-// 				//$('#page').replaceWith($('<div>').html(page.replace(htmlScriptsRegex, '')).find('#page').css('opacity', 0.5));
-// 				//$('#page').replaceWith($('<div>').html(page).find('#page').css('opacity', 0.5));
-// 				//console.log(toUrl);
-// 				var $pageNext = $('<div>').html(page);
-
-// 				$('#main').promise().done(function(){
-// 					$(this).replaceWith($pageNext.find('#main').css('top', '400px'));
-
-// 					$('#page').attr('class', $pageNext.find('#page').attr('class'));
-// 					//console.log();
-
-// 					if($pageNext.find('#page').hasClass('page-template-page-event-php')){
-// 						var $bg = $('.bg-layers');
-// 						var $bgLayerNext = $pageNext.find('.bg-layers > .bg-layer').css('display', 'none');
-
-// 						/*$bg.find('.bg-layer').fadeOut(600, function() {
-// 							$(this).remove();
-// 						});*/
-
-// 						$bg.append($bgLayerNext);
-
-// 						$('nav#event-bar').replaceWith($pageNext.find('nav#event-bar'));
-// 					}
-
-					
-
-					
-
-					
-
-// 					$(window).trigger('ajaxify.pageUpdated');
-// 				});
-
-				
-// 				//$bgLayerNext.fadeIn(600);
-// 				/*$('#page').find('script').each(function(i, el) {
-// 					console.log(el.src);
-// 					var s = $(el).replaceWith('<div id="ajaxify-ijsr">');
-// 					console.log(s);
-// 					$('#ajaxify-ijsr').replaceWith(s);
-// 				});*/
-// 				//$('#page').append('<script type="text/javascript">alert("hello");</script>')
-// 				//$(window).trigger('ajaxify.pageUpdated');
-// 			}
-
-// 			var changeState = function(data, title, url) {
-// 				oldState = history.getState();
-// 				history.pushState(data, title, url);
-// 				$(window).trigger('ajaxify.stateChanged');
-// 			}
-
-// 			var loadPage = function(url) {
-// 				if($.isUrlExternal(url) || ~url.indexOf('wp-admin') || ~url.indexOf('wp-login'))
-// 					return;
-
-// 				$(window).trigger('ajaxify.urlRequest');
-
-// 				$.get(url, function(data, status, jqXhr){
-// 					//console.log(data, status, jqXhr);
-// 					if(jqXhr.status == 200){
-// 						page = data;
-// 						//changeState({}, '', url);
-// 						updatePage();
-// 					}
-// 					else {
-// 						page = null;
-// 						window.location = oldState.url;
-// 					}
-// 				}, 'html');
-
-// 				return;
-// 			}
-
-// 			var processLinkAction = function(ev) {
-// 				ev.preventDefault();
-// 				var $el = $(ev.currentTarget);
-// 				toUrl = $el.attr('href');
-
-// 				changeState({}, '', toUrl);
-// 			}
-
-			
-// 			$(window).on('ajaxify.urlRequest', function(ev) {
-// 				//console.log('loading');
-// 				//$('#page').animate({opacity: 0.5}, 200);
-// 				$('#main').velocity({'top': 400}, 500);
-// 				//$('.')
-// 				//$('.loading-bar').css('display', 'block');
-// 			}).on('ajaxify.pageUpdated', function(ev) {
-// 				//console.log('finished');
-// 				//$('#page').animate({opacity: 1}, 300);
-// 				$('#main').velocity({'top': 0}, 1000, 'easeOutBack', function() {
-// 					var bgLayers = $('.bg-layers > .bg-layer');
-
-// 					/*if(bgLayers.length > 1) {
-// 						bgLayers.not(':hidden').fadeOut(1000, function() {
-// 							$(this).remove();
-// 						});
-// 					}
-// 					bgLayers.filter(':hidden').fadeIn(1000);*/
-// 				});
-
-// 				//$('.loading-bar').css('display', 'none');
-// 			});
-
-// 			$(window).on('statechange', function(ev) {
-// 				//console.log(history.getState());
-// 				newState = history.getState();
-
-// 				loadPage(newState.url);
-// 			});
-
-// 			var timer = null;
-// 			$(document).on('click', 'a', function(ev){
-// 				//clearTimeout(timer);
-// 				//ev.preventDefault();
-// 				/*timer = setTimeout(function() {
-// 					processLinkAction(ev);
-// 				}, 200);*/
-
-// 				$('#main').promise().done(function(){
-// 					processLinkAction(ev);
-// 				});
-// 			});
-// 		}
-		
-		
-// 	});
-
-// })(jQuery);
-
 ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Array'].forEach( 
     function(name) { 
         jQuery['is' + name] = function(obj) {
@@ -188,7 +33,7 @@
 					}
 
 					act.error = function(xhr, status, error) {
-						if(console && console.log)
+						if(window.console && console.log)
 							console.log('xify error:', error);
 					}
 
@@ -245,7 +90,6 @@
 				ev.preventDefault();
 				var state = history.getState();
 				var act = state.data;
-
 
 				//Check that this history event has our act data, otherwise ignore it.
 				if(state.data && state.data.url && state.data.isXify)

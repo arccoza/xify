@@ -1,0 +1,28 @@
+{
+  "name": "xify",
+  "main": "xify.js",
+  "version": "1.0.0",
+  "authors": [
+    "adrien <adrien@arccoza.com>"
+  ],
+  "description": "Xify is a jquery plugin script to ajaxify your site.",
+  "keywords": [
+    "ajaxify",
+    "ajax",
+    "xhr",
+    "xmlhttprequest",
+    "history",
+    "pushstate",
+    "jquery",
+    "plugin"
+  ],
+  "license": "MIT",
+  "homepage": "arccoza.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

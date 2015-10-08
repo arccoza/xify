@@ -1,0 +1,19 @@
+{
+  "name": "xify",
+  "version": "1.0.0",
+  "description": "Xify is a jquery plugin script to ajaxify your site.",
+  "main": "xify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ajaxify",
+    "ajax",
+    "history",
+    "pushstate",
+    "jquery",
+    "plugin"
+  ],
+  "author": "Adrien de Pierres <adrien@arccoza.com>",
+  "license": "MIT"
+}
