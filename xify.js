@@ -6,7 +6,7 @@
 });
 
 
-(function($) {
+(function($, undefined) {
 	//$(document).ready(function() {
 
 		//console.log(History);
