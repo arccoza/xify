@@ -1,4 +1,6 @@
 var jQuery = require('jquery');
+var history = require('./lib/jquery.history.js');
+var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 
 
 ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Array'].forEach( 

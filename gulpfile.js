@@ -10,6 +10,8 @@ var uglify = require('gulp-uglify');
 var es = require('event-stream')
 
 
+var files = ['index.js', './lib/*.js', 'gulpfile.js'];
+
 gulp.task('umd-heavy', function () {
   var b = browserify({
     entries: './index.js',
@@ -43,7 +45,7 @@ gulp.task('umd-lite', function () {
     debug: true
   });
 
-  b.external(['jquery']);
+  b.external(['jquery', './lib/jquery.history.js', './lib/jquery.ba-urlinternal.js']);
 
   var bundle = b.bundle()
 
@@ -64,19 +66,8 @@ gulp.task('umd-lite', function () {
   return es.merge(s1, s2);
 });
 
-gulp.task('browser-heavy-min', function () {
-  var b = browserify({
-    entries: './index.js',
-    standalone: 'xify',
-    debug: true
-  });
-
-  return b.bundle()
-    .pipe(source('xify.min.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .on('error', gutil.log)
-    .pipe(gulp.dest('./build/'));
-});
-
 gulp.task('default', ['umd-heavy', 'umd-lite']);
+
+gulp.task('watch', function () {
+    gulp.watch(files, ['umd-heavy', 'umd-lite']);
+});

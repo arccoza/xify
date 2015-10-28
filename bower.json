@@ -1,6 +1,6 @@
 {
   "name": "xify",
-  "main": "xify.js",
+  "main": "index.js",
   "version": "1.0.0",
   "authors": [
     "adrien <adrien@arccoza.com>"
