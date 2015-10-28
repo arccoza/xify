@@ -3,9 +3,14 @@
   "main": "index.js",
   "version": "1.0.0",
   "authors": [
-    "adrien <adrien@arccoza.com>"
+    "Adrien de Pierres <adrien@arccoza.com>"
   ],
   "description": "Xify is a jquery plugin script to ajaxify your site.",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
   "keywords": [
     "ajaxify",
     "ajax",
