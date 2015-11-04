@@ -1,5 +1,5 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.xify = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var jQuery = require('jquery');
+window.jQuery = require('jquery');
 var history = require('./lib/jquery.history.js');
 var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 
@@ -16,14 +16,37 @@ var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 	//History events & Ajax
 	if(window.History){
 		module.exports = $;
+		// window.xify = $;
 		var history = window.History;
-		$.xify = history;
+		$.xify = {};
 		//$.xify.options.html4Mode = true;
 
 		//Create an initial Deffered, pretending to be an XHR object, already resolved, to kick things off.
 		//The xhr object is global to this plugin so that we can limit requests to one at a time.
 		var xhr = $.Deferred().resolve(null);
 
+		// Auotmatically replace title and meta elements.
+		var autoReplace = function($html) {
+			$html.find('title').replaceAll('title');
+			$('meta').remove();
+			$('head').prepend($html.find('meta'));
+		}
+
+		// Parse the text returned by xify as html.
+		var parseHtml = function(text) {
+			// Rename unparsable tag types.
+			var html = String(text)
+				.replace(/<\!DOCTYPE[^>]*>/i, '')
+				.replace(/<(html|head|body|script)([\s\>])/gi,'<div data-xify="$1"$2')
+				.replace(/<\/(html|head|body|script)\>/gi,'</div>')
+				.trim();
+
+			// Parse html string into DOM elements.
+			var $html = $(html);
+			autoReplace($html);
+
+			return $html;
+		}
 
 		var fetch = function(act) {
 			if(xhr.state() != 'pending') {
@@ -47,12 +70,20 @@ var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 					//TODO: Make the elementMap replacement much more powerful, 
 					//enabling lists of elements to replace each other, appends, prepends, inserts at etc.
 
-					var $html = $('<div>').append($.parseHTML(data));
+					var $html = parseHtml(data);
+					// var $html = $('<div>').append($.parseHTML(data));
 					//for(var key in act.elementMap) {
 					$.each(act.elementMap, function(key, val) {
 						//var val = act.elementMap[key];
 						var $target = $(val.to || val.from);
-						var $replacement = $html.find(val.from).css('display', 'none');
+						// If the target is the 'body' element only allow attribute replacement.
+						// TODO: Perhaps add some logic to replace the innerHTML of the target if it is 'body'
+						// and not attr.
+						if($target.is('body') && val.attr) {
+							console.log('body');
+							val.from = '[data-xify="body"]';
+						}
+						var $replacement = $html.find(val.from); //.css('display', 'none');
 						var replacingEvent = $.Event('replacing.xify', {elementMap: val, original: $target, replacement: $replacement[0]});
 						var replacedEvent = $.Event('replaced.xify', {elementMap: val, original: $target, replacement: $replacement[0]});
 
@@ -60,7 +91,7 @@ var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 						$target.trigger(replacingEvent);
 						$target.promise().done(function() {
 							if($.isArray(val.attr) && val.attr.length > 0) {
-								$target.attr(val.attr[0], $replacement.attr(val.attr[1] || val.attr[0]));
+								$target.attr(val.attr[0], $replacement.attr(val.attr[1] || val.attr[0]) || '');
 								$target.trigger(replacedEvent);
 							}
 							else if($.isString(val.attr)) {

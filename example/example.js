@@ -1,10 +1,26 @@
-var http = require('http');
+var express = require('express');
+var app = express();
 var fs = require('fs');
 
 
-http.createServer(function (request, response) {
-	//var page = fs.readFileSync('page1.html');
-	//response.writeHead(200, {"Content-Type": "text/html"});
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('Hello World\n');
-}).listen(8080);
+app.use('/static', express.static('assets'));
+app.use('/static', express.static('../build'));
+
+app.get(['/', '/g1'], function (req, res) {
+  var page = fs.readFileSync('globaljs_1.html');
+  console.log(page instanceof Buffer);
+  res.send(page.toString());
+});
+
+app.get('/g2', function (req, res) {
+  var page = fs.readFileSync('globaljs_2.html');
+  console.log(page instanceof Buffer);
+  res.send(page.toString());
+});
+
+var server = app.listen(8080, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log('Example app listening at http://%s:%s', host, port);
+});
