@@ -88,12 +88,12 @@ Subscribe to any event you like to trigger an async fetch,
 The `elementMap` property descibes what to extract from the html returned by the ajax request and where to put it.
 You provide an array of `{from: to: attr: }` objects.
 
-**from** is a selector to grab some element from the returned html.
+`from` is a selector to grab some element from the returned html.
 
-**to** (optional) is a selector to remove an element from the current page and replace it with 
+`to` (optional) is a selector to remove an element from the current page and replace it with 
 the element selected with `from`. If `to` is not defined, `from` is used again.
 
-**attr** (optional) If you only want to swap attributes and not the whole element adding this property 
+`attr` (optional) If you only want to swap attributes and not the whole element adding this property 
 will cause Xify to replace the named attributes on the element only. You provide a string, or an array 
 ['name','id'] to map from one attribute name to another.
 
