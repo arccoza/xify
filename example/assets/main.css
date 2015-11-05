@@ -17,6 +17,32 @@ body.p2 {
 nav {
   position: fixed;
 }
+nav ul li {
+  position: relative;
+  height: auto;
+  margin: 0.4em;
+  list-style-type: none;
+}
+nav ul li > a {
+  display: inline-block;
+  background: rgba(50,50,50,0.2);
+  border: 1px solid #777;
+  border-radius: 5px;
+  padding: 0.2em 0.6em;
+}
+
+code {
+  padding: 0 0.4em;
+}
+
+a, a:link, a:visited {
+  text-decoration: none;
+  color: #E21B5A;
+}
+a:hover, a:focus {
+  text-decoration: none;
+  color: #9E0C39;
+}
 
 #test-box1, .test-box2, .test-box3, #test-box4 {
   position: relative;

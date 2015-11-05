@@ -1,6 +1,6 @@
 {
   "name": "xify",
-  "main": "index.js",
+  "main": "./build/xify.js",
   "version": "1.0.0",
   "authors": [
     "Adrien de Pierres <adrien@arccoza.com>"
@@ -28,6 +28,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "example",
+    "examples"
   ]
 }

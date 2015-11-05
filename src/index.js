@@ -1,7 +1,9 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.xify = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-window.jQuery = require('jquery');
-var history = require('./lib/jquery.history.js');
-var urlInternal = require('./lib/jquery.ba-urlinternal.js');
+if(!window.jQuery) {
+	window.jQuery = require('jquery');
+}
+// var jQuery = require('jquery');
+var history = require('history');
+var urlInternal = require('urlinternal');
 
 
 ['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Array'].forEach( 
@@ -60,7 +62,7 @@ var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 
 				act.error = function(xhr, status, error) {
 					if(window.console && console.log)
-						console.log('xify error:', error);
+						console.log('xify error:', status + ' ' + error);
 				}
 
 				act.success = function(data, status, xhr) {
@@ -80,7 +82,6 @@ var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 						// TODO: Perhaps add some logic to replace the innerHTML of the target if it is 'body'
 						// and not attr.
 						if($target.is('body') && val.attr) {
-							console.log('body');
 							val.from = '[data-xify="body"]';
 						}
 						var $replacement = $html.find(val.from); //.css('display', 'none');
@@ -195,9 +196,3 @@ var urlInternal = require('./lib/jquery.ba-urlinternal.js');
 	}
 
 })(jQuery);
-
-},{"./lib/jquery.ba-urlinternal.js":"./lib/jquery.ba-urlinternal.js","./lib/jquery.history.js":"./lib/jquery.history.js","jquery":"jquery"}]},{},[1])(1)
-});
-
-
-//# sourceMappingURL=xify.lite.js.map

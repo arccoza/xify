@@ -2,7 +2,12 @@
   "name": "xify",
   "version": "1.0.0",
   "description": "Xify is a jquery plugin script to ajaxify your site.",
-  "main": "index.js",
+  "main": "./src/index.js",
+  "browser": {
+    "xify": "./build/xify.js",
+    "urlinternal": "./lib/jquery.ba-urlinternal.js",
+    "history": "./lib/jquery.history.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,6 +28,7 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "^12.0.0",
+    "browserify-shim": "^3.8.11",
     "event-stream": "^3.3.2",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
