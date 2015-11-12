@@ -69,16 +69,16 @@ to your html `<head>`, like so:
 ```
 $.xify.on(event, selector, callback);
 ```
-Subscribe to any event you like to trigger an async fetch, 
+Subscribe to any event you like to trigger an async fetch.
 
 
 `event` any DOM or custom event.
 
 `selector` the CSS selector for the target to watch for the event.
 
-`callback` the function which returns a Xify config object. This function must return and object as described below.
+`callback` the function which returns a Xify config object. This function must return an object as described below.
 
-```
+```js
 {
   type: 'GET', //The type of ajax request to make (optional, default is GET).
   url: $(ev.currentTarget).attr('href'), //The URL for the request (here we've taken it from an anchor tag).
@@ -110,7 +110,7 @@ This is best shown in an example.
 
 ## Example
 
-```
+```js
 var $ = require('xify');
 
 //Here we use xify to replace content on the page async.
